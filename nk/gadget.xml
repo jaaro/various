@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
   <ModulePrefs>
-    <Require feature="opensocial-0.9" />
+    <Require feature="swfobject" />
   </ModulePrefs>
   <Content type="html" view="canvas">
     <![CDATA[
       <script type="text/javascript">
-        function request() {
-          var req = opensocial.newDataRequest();
-          req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER),
-                                            'request_id');
-          req.send(response);
-        };
+        function displayFlash() {
+          var params = {
+            allowScriptAccess: 'always',
+            wmode: 'opaque'
+          };
+          var swfUrl = 'http://www.adobe.com/products/flashplatformruntimes/marquee/assets/web/3dgrid.swf';
+          swfobject.embedSWF(swfUrl, 'flash-container', 760, 500, '10', false, false, params);
+        }
 
-        function response(dataResponse) {
-          var viewer = dataResponse.get('request_id').getData();
-          document.getElementById('content').innerHTML = viewer.getDisplayName(); 
-        };
-
-        gadgets.util.registerOnLoadHandler(request);        
+        gadgets.util.registerOnLoadHandler(displayFlash);
       </script>
-    <div id="content"></div>
+      <div id="flash-container"><p>you need flash to see this application</p></div>
     ]]>
   </Content>
 </Module>
