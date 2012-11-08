@@ -1,24 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-  <ModulePrefs>
-    <Require feature="swfobject" />
-  </ModulePrefs>
+  <ModulePrefs/>
   <Content type="html" view="canvas">
     <![CDATA[
-      <script type="text/javascript">
-        function displayFlash() {
-          var params = {
-            allowScriptAccess: 'always',
-            wmode: 'opaque'
-          };
-          var swfUrl = 'http://www.adobe.com/products/flashplatformruntimes/marquee/assets/web/3dgrid.swf';
-          swfobject.embedSWF(swfUrl, 'flash-container', 760, 500, '10', false, false, params);
-        }
-
-        gadgets.util.registerOnLoadHandler(displayFlash);
-      </script>
-      <div id="flash-container"><p>you need flash to see this application</p></div>
+      Hello World
     ]]>
   </Content>
 </Module>
-
