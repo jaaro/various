@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"&nbsp;?>
+<Module>
+  <ModulePrefs>
+    <Require feature="flash" />
+  </ModulePrefs>
+  <Content type="html" view="canvas">
+    <![CDATA[
+      <script type="text/javascript">
+        function displayFlash() {
+          var params = {
+            width: 760,
+            height: 500,
+            allowScriptAccess: 'always'
+          };
+          var swfUrl = 'http://www.adobe.com/products/flashplatformruntimes/marquee/assets/web/3dgrid.swf';
+          gadgets.flash.embedFlash(swfUrl, 'flash-container', '10', params);
+        }
+
+        gadgets.util.registerOnLoadHandler(displayFlash);
+      </script>
+      <div id="flash-container"></div>
+    ]]>
+  </Content>
+</Module>
+

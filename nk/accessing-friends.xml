@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"&nbsp;?>
+<Module>
+  <ModulePrefs>
+    <Require feature="opensocial-0.9" />
+  </ModulePrefs>
+  <Content type="html" view="canvas">
+    <![CDATA[
+      <script type="text/javascript">
+        function request() {
+          var req = opensocial.newDataRequest();
+          req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER),
+                                            'request_id');
+          var friends = opensocial.newIdSpec({"userId": "VIEWER", "groupId": "FRIENDS"});
+          req.add(req.newFetchPeopleRequest(friends, {"max"&nbsp;: 100}), 'another_id');
+          req.send(response);
+        };
+
+        function response(dataResponse) {
+          var html;
+          var viewer = dataResponse.get('request_id').getData();
+          var friends = dataResponse.get('another_id').getData();
+          html = viewer.getDisplayName() + ":<br/>";
+          friends.each(function(friend) {
+            html += friend.getDisplayName() + "<br/>";
+          });
+          document.getElementById('content').innerHTML = html; 
+        };
+        
+        gadgets.util.registerOnLoadHandler(request);        
+      </script>
+      <div id="content"></div>
+    ]]>
+  </Content>
+</Module>
+

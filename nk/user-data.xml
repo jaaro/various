@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"&nbsp;?>
+<Module>
+  <ModulePrefs>
+    <Require feature="opensocial-0.9" />
+  </ModulePrefs>
+  <Content type="html" view="canvas">
+    <![CDATA[
+      <script type="text/javascript">
+        function request() {
+          var req = opensocial.newDataRequest();
+          req.add(req.newFetchPersonRequest(opensocial.IdSpec.PersonId.VIEWER),
+                                            'request_id');
+          req.send(response);
+        };
+
+        function response(dataResponse) {
+          var viewer = dataResponse.get('request_id').getData();
+          document.getElementById('content').innerHTML = viewer.getDisplayName(); 
+        };
+
+        gadgets.util.registerOnLoadHandler(request);        
+      </script>
+    <div id="content"></div>
+    ]]>
+  </Content>
+</Module>
+
