@@ -1,60 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
+
 <Module>
-  <ModulePrefs title="Preferences for __UP_myname__" height="400"/> 
-  <UserPref name="myname" display_name="Name" default_value="Rowan"/>
-  <UserPref name="myphoto" display_name="Photo" default_value="http://doc.examples.googlepages.com/rowan-headshot.jpg"/>
-  <UserPref name="mychoice" display_name="Show Photo?" datatype="bool" default_value="true"/>
-  <UserPref name="mycolor" display_name="Color" default_value="Yellow" datatype="enum" >
-    <EnumValue value="Red" />
-     <EnumValue value="Aqua" />
-     <EnumValue value="Lime" />
-     <EnumValue value="Yellow" />
-     <EnumValue value="Pink" />
-     <EnumValue value="Orange" />
-     <EnumValue value="White" />
-   </UserPref>
-   <Content type="html"><![CDATA[
-   <div id="content_div"></div>
-   <script type="text/javascript">
-   // Get userprefs
-   var prefs = new gadgets.Prefs();
+  <ModulePrefs title="Magic Decoder"/> 
+  <Content type="html">
+  <![CDATA[
+     <script type="text/javascript">
 
-   function displayGreeting () {
-     // Get current time
-     var today = new Date();
-     var time = today.getTime();
-     var html = "";
-  
-     // Based on the time of day, display an appropriate greeting
-     var hour = today.getHours();
-     var salutation = "Afternoon";
-     if (hour < 12) {
-       salutation = "Morning";
-     } else if (hour > 17) {
-       salutation = "Evening";
+       // The gadget version of ROT13.
+       // Encodes/decodes text strings by replacing each letter with the letter
+       // 13 positions to the right in the alphabet. 
+       function decodeMessage (form) {
+          var alpha = "abcdefghijklmnopqrstuvwxyz";
+          var input = form.inputbox.value; 
+          var aChar;
+          var message = "";
+          for (var i = 0; i <input.length; i++)
+          { 
+             aChar = input.charAt(i);
+             var index = alpha.indexOf(aChar.toLowerCase());
+
+             // if a non-alphabetic character, just append to string
+             if (index==-1)
+             {
+                message += aChar;
+             }
+
+             // if you have to wrap around the end of the alphabet
+             else if(index > 12) { // compensate for 0-based index
+                index = 25 - index; // last item in array is at [25]
+                index = 12 - index; // because array starts with 0
+                aChar = alpha.charAt(index);
+                message += aChar;
+             }
+
+             // if you don't have to wrap
+             else {
+                aChar = alpha.charAt(index+13);
+                message += aChar;
+             }
+          }
+          document.getElementById('content_div').innerHTML = "<b>Your message: </b>" + message; 
      }
+     </script>
 
-     // Set the background color according to the mycolor userpref
-     var element = document.getElementById('content_div');  
-     element.style.height=250;
-     // Set the background color according to the mycolor userpref   
-     element.style.backgroundColor=prefs.getString("mycolor"); 
-
-     // Display a greeting based on the myname userpref
-     html += "<br><FONT SIZE=6>Good " + salutation + ", " +
-           prefs.getString("myname") + "!!!<br><br></FONT>";
-
-     // If the "Show Photo?" checkbox is checked, display photo.
-     if (prefs.getBool("mychoice") == true) {
-       html += '<img src="' + prefs.getString("myphoto") + '">';
-     }
-     element.innerHTML = html;
-   }
-   // Pass the userprefs for this module instance to the function
-   // (allows users to include multiple module instances on their page)
-   gadgets.util.registerOnLoadHandler(displayGreeting); 
-  
-   </script> 
-   ]]>  
+     <FORM NAME="myform" ACTION="" METHOD="GET">Message: <BR>
+       <INPUT TYPE="text" NAME="inputbox" VALUE=""><P>
+       <INPUT TYPE="button" NAME="button" Value="Transform" onClick="decodeMessage(this.form)">
+     </FORM>
+     <div id="content_div"></div>
+  ]]>
   </Content>
 </Module>
