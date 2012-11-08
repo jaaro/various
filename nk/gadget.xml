@@ -1,53 +1,95 @@
-<?xml version="1.0" encoding="UTF-8" ?> 
-
-<Module>
-  <ModulePrefs title="Magic Decoder"/> 
-  <Content type="html">
-  <![CDATA[
-     <script type="text/javascript">
-
-       // The gadget version of ROT13.
-       // Encodes/decodes text strings by replacing each letter with the letter
-       // 13 positions to the right in the alphabet. 
-       function decodeMessage (form) {
-          var alpha = "abcdefghijklmnopqrstuvwxyz";
-          var input = form.inputbox.value; 
-          var aChar;
-          var message = "";
-          for (var i = 0; i <input.length; i++)
-          { 
-             aChar = input.charAt(i);
-             var index = alpha.indexOf(aChar.toLowerCase());
-
-             // if a non-alphabetic character, just append to string
-             if (index==-1)
-             {
-                message += aChar;
-             }
-
-             // if you have to wrap around the end of the alphabet
-             else if(index > 12) { // compensate for 0-based index
-                index = 25 - index; // last item in array is at [25]
-                index = 12 - index; // because array starts with 0
-                aChar = alpha.charAt(index);
-                message += aChar;
-             }
-
-             // if you don't have to wrap
-             else {
-                aChar = alpha.charAt(index+13);
-                message += aChar;
-             }
-          }
-          document.getElementById('content_div').innerHTML = "<b>Your message: </b>" + message; 
-     }
-     </script>
-
-     <FORM NAME="myform" ACTION="" METHOD="GET">Message: <BR>
-       <INPUT TYPE="text" NAME="inputbox" VALUE=""><P>
-       <INPUT TYPE="button" NAME="button" Value="Transform" onClick="decodeMessage(this.form)">
-     </FORM>
-     <div id="content_div"></div>
-  ]]>
+<?xml version="1.0" encoding="UTF-8"?><Module>
+  <ModulePrefs>
+    <Require feature="opensocial-0.9"/>
+    <Require feature="nk" />
+    <Require feature="nk-payment" />
+    <Require feature="views" />
+  </ModulePrefs>
+  <Content type="html" view="canvas">
+    <![CDATA[
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="http://fish-nk.apps.tensquaregames.com/sns//common/styles/style.css:2773ab1c5f8fb766ea8a79db6ec198ff"/>
+    <script type="text/javascript" src="http://fish-nk.apps.tensquaregames.com/sns//common/scripts/mootools-core.js:831bf9233ed2588e364595040b33c49d"></script>
+    <script type="text/javascript" src="http://fish-nk.apps.tensquaregames.com/sns//common/scripts/common.js:1e45c465cca27930b570631b2f11c52a"></script>
+    <script type="text/javascript" src="http://fish-nk.apps.tensquaregames.com/sns//nk/scripts/tsg.js:d909d80d357c77928c9f28d1ac6c7d36"></script>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-27037834-2']);
+        _gaq.push(['_trackPageview', '/']);
+    </script>
+    
+    <script>
+        (function() {
+        var id = 'nk-widget-sdk';
+        var js, first_js = document.getElementsByTagName('script')[0];
+        if (document.getElementById(id)) return;
+        js = document.createElement('script'); 
+        js.id = id; js.async = true;
+        js.type = 'text/javascript';
+        js.src = 'http://0.s-nk.pl/script/packs/nk_widgets_all.js';
+        first_js.parentNode.insertBefore(js, first_js);
+        }());
+    </script>
+</head>
+<body>
+    <script type="text/javascript">
+    
+        gadgets.util.registerOnLoadHandler(function(){
+            new Loader('http://fish-nk.apps.tensquaregames.com/nk', 'nk', {
+            sessionId:               '',
+            url:                     'http://fish-nk.apps.tensquaregames.com',
+            swfLoaderUrl:            'http://fish-nk.apps.tensquaregames.com/sns//common/swf/fisherking_loader.swf:87f2323b12541ba098c07faf40e24fbd',
+            swfApplicationUrl:       'http://fish-nk.apps.tensquaregames.com/sns//common/swf/fisherking.swf:bd3c6d4c2825b1d5dbb7fdf4f69e7873',
+            swfWidth:                720,
+            swfHeight:               660,
+            flashvars: {
+                debugMode:           0,
+                modules:             '{"questsManager":{"enabled":1}}'
+            },
+                        swfParams: {
+                allowScriptAccess:   'always',
+                allowNetworking:     'all',
+                wMode:               'opaque'
+            }
+        });
+        });
+    </script>
+            <div id="upperSection">
+            <a href="http://nk.pl/aplikacje/apple_squash" target="_blank">
+                <img id="promoBanner" src="http://fish-nk.apps.tensquaregames.com/sns/common/appleSquash600x100.png:02b3b5f0f494ec97af36e7273e083e1b" alt="Apple Squash"/>
+            </a>
+        </div>
+        <ul id="menu" style="margin-top:5px;">
+        <li class="selected" id="flash"> </li>
+        <li id="payment"> </li>
+    </ul>  
+    <div class = "nk-fajne" style="float:right;width:250px;margin-right:27px;"
+         data-nk-url = "http://nk.pl/#gry-online/na_ryby"
+         data-nk-type = "1"
+         data-nk-color = "0"
+         data-nk-title = "Na Ryby"
+         data-nk-image = "http://fish-nk.apps.tensquaregames.com/sns/common/100x100.png"
+         data-nk-description = "Znudziło Ci się wyciąganie rybobobrów i ryb kiełbasek? Czas na ryby! Na ryby to nie tylko rywalizacja o największa rybę, ale też zadania, turnieje i relaks w bardzo realistycznych lokacjach. Chodźcie razem ze znajomymi na ryby!">
+    </div>    
+    
+    <span class="clear"></span>
+    <div id="workareas">
+        <div id="payment-container" class="workarea display_none" >Płatności - kontener</div>
+        <div id="flash-container"   class="workarea const">Flash container</div>
+    </div>
+    <div id="uid-container">UID: <span id="uid"></span></div>
+    <iframe width="720" height="320" frameborder="0" scrolling="no" allowtransparency="true" src="http://nk.pl/widzety/grupy/uzytkownicy#%7B%22options%22%3A%22%7B%5C%22widget_border_color%5C%22%3A%5C%22%23aabece%5C%22%2C%5C%22widget_bg%5C%22%3A%5C%22%23ffffff%5C%22%2C%5C%22widget_header_footer_bg%5C%22%3A%5C%22%232b608c%5C%22%2C%5C%22widget_header_text_color%5C%22%3A%5C%22%23ffffff%5C%22%2C%5C%22widget_group_desc_bg%5C%22%3A%5C%22%23e9eff3%5C%22%2C%5C%22widget_group_desc_color%5C%22%3A%5C%22%238d9297%5C%22%2C%5C%22footer_link_color%5C%22%3A%5C%22%23aabece%5C%22%2C%5C%22group_id%5C%22%3A%5C%22241361%5C%22%7D%22%2C%22signature%22%3A%22c9924e2e6661e4ae6b81f3d2ac75807cdb0ce79f%22%7D"></iframe>
+    <script type="text/javascript">
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+</body>
+</html>
+   ]]>
   </Content>
 </Module>
