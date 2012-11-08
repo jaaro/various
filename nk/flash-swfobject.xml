@@ -11,7 +11,7 @@
             allowScriptAccess: 'always',
             wmode: 'opaque'
           };
-          var swfUrl = 'http://www.adobe.com/products/flashplatformruntimes/marquee/assets/web/3dgrid.swf';
+          var swfUrl = 'http://www.biology.ualberta.ca/facilities/multimedia/uploads/alberta/Ecosystem.swf';
           swfobject.embedSWF(swfUrl, 'flash-container', 760, 500, '10', false, false, params);
         }
 
