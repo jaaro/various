@@ -29,7 +29,7 @@
         
         function postMyActivity() {
           postActivity("This is a sample activity");
-        }
+        };
   
         gadgets.util.registerOnLoadHandler(postMyActivity);
       </script>
