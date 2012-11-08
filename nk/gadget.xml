@@ -4,7 +4,7 @@
     <Require feature="opensocial-0.9" />
     <Require feature="views" />
     <Require feature="opensocial-data"/>
-    <Require feature="opensocial-templates">
+    <Require feature="opensocial-templates"/>
     <Require feature="nk" />
   </ModulePrefs>
   <Content type="html" view="canvas">
