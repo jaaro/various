@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs>
+    <Require feature="opensocial-0.9" />
+    <Require feature="views" />
+    <Require feature="opensocial-data"/>
+    <Require feature="opensocial-templates"/>
+    <Require feature="nk" />
+  </ModulePrefs>
+  <Content type="html" view="canvas">
+    <![CDATA[
+      <script type="text/javascript">
+        function onActivityPosted(data) {
+          if (data.hadError()) {
+            alert("There was a problem: " + data.getErrorMessage());
+          } else {
+            output("The activity was posted successfully.");
+          }
+        };
+          
+        function postActivity(title) {
+          var data = {};
+          data[opensocial.Activity.Field.TITLE] = title;
+          var activity = opensocial.newActivity(data);
+          opensocial.requestCreateActivity(
+              activity, 
+              opensocial.CreateActivityPriority.HIGH, 
+              onActivityPosted
+          ); 
+        };
+        
+        function postMyActivity() {
+          postActivity("This is a sample activity");
+        };
+  
+        gadgets.util.registerOnLoadHandler(postMyActivity);
+      </script>
+      <div id="flash-container"><p>you need flash to see this application</p></div>
+    ]]>
+  </Content>
+</Module>
