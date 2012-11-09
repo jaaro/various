@@ -1,384 +1,41 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-    <ModulePrefs title="Hamster Fall" author="OpenMinds" author_email="openmindsbh@gmail.com" description="__MSG_desc__" screenshot="http://openminds-network.appspot.com/hamsterfall/ss2.jpg" thumbnail="http://openminds-network.appspot.com/hamsterfall/thumb120x60.gif" height="640">
-        <Require feature="opensocial-0.8"/>
-        <Require feature="views"/>
-        <Require feature="dynamic-height"/>
-        <Require feature="opensocial-data"/>
-        <Require feature="opensocial-templates">
-          <Param name="process-on-server">true</Param>
-        </Require>
-        
-        <Locale messages="http://openminds-network.appspot.com/hamsterfall/en_ALL.xml"/>
-        <Locale lang="en" messages="http://openminds-network.appspot.com/hamsterfall/en_ALL.xml"/>
-        <Locale lang="pt" messages="http://openminds-network.appspot.com/hamsterfall/pt_ALL.xml"/>
-
-        <Icon>http://openminds-network.appspot.com/hamsterfall/favicon.ico</Icon>
-    </ModulePrefs>
-    <Content type="html" view="profile">
+  <ModulePrefs>
+    <Require feature="opensocial-0.9" />
+    <Require feature="views" />
+    <Require feature="opensocial-data"/>
+    <Require feature="opensocial-templates"/>
+    <Require feature="nk" />
+  </ModulePrefs>
+  <Content type="html" view="canvas">
     <![CDATA[
-    
-<style type="text/css">
-  .panel{
-      border: 1px solid #4D3716;
-      background : #FFF6D0 ;
-      float: left;
-      -moz-border-radius:5px;
-  }
-  body,div,td,tr,table,tbody,span{
-      font-family:arial,sans-serif;
-      font-size:12px;
-      font-weight:700;
-      text-align:center;
-  }
-    a:link {text-decoration: none; color: #4D3716;}
-    a:visited {text-decoration: none; color: #4D3716;}
-    a:hover {text-decoration: underline; color: #AF3716; }
-    a:active {text-decoration: none}
-
-</style>
-<script type="text/os-data" xmlns:os="http://ns.opensocial.org/2008/markup">
-    <os:OwnerRequest key="owner" fields="thumbnailUrl,name"/>
-    <os:DataRequest key="data" method="people.get" userId="@owner" groupId="@self" startIndex="0" count="20"/>
-</script>
-
-<script type="text/os-template"  xmlns:os="http://ns.opensocial.org/2008/markup" xmlns:osx= "http://ns.opensocial.org/2009/extensions" required="owner,data">
-  <div style="margin: auto; width:425px; height: 250px;">
-      <div class="panel" style="width: 200px; height: 200px;">
-          <img src="http://openminds-network.appspot.com/hamsterfall/thumb200x200_1.jpg">
-      </div>
-      <div class="panel" style="width: 200px; height: 200px; margin-left: 10px; __MSG_pviewLineHeight__">
-          __MSG_desc__
-      </div>
-      <div class="panel" style="clear: left; width: 410px; height: 40px; margin-top: 10px; line-height:20px;">
-           <osx:NavigateToApp> __MSG_pviewHeadline__  </osx:NavigateToApp>
-      </div>
-   </div>
-
-</script>  
-    ]]>
-    </Content>
-
-
-    <Content type="html" view="canvas">
-    <![CDATA[
-
-        <style type="text/css">
-        body {
-            text-align: center;
-        }
-        table{
-          text-align:center;
-        }
-        td{
-            border: 1px dotted #4D3716;
-            text-align:center;
-        }
-        th{
-            border: 1px solid #4D3716;
-            text-align:center;
-        }
-        </style>
-   
-      <div style="height:480px; width: 812px; padding: 0;"> 
-        <div style="border: 2px solid #4D3716; margin-right: 2px; float:left;" id="flash">
-           <OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" WIDTH="640" HEIGHT="480" id="Falling"><PARAM NAME=movie VALUE="http://games.mochiads.com/c/g/hamster-fall/Falling.swf"><PARAM NAME=quality VALUE=high><PARAM NAME=bgcolor VALUE=#FFFFFF><EMBED allowscriptaccess="always" src="http://games.mochiads.com/c/g/hamster-fall/Falling.swf" quality=high bgcolor=#FFFFFF WIDTH="640" HEIGHT="480" NAME="Falling" ALIGN="" TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/go/getflashplayer"></EMBED></OBJECT> 
-        </div>
-
+      <script type="text/javascript">
+        function onActivityPosted(data) {
+          if (data.hadError()) {
+            alert("There was a problem: " + data.getErrorMessage());
+          } else {
+            output("The activity was posted successfully.");
+          }
+        };
+          
+        function postActivity(title) {
+          var data = {};
+          data[opensocial.Activity.Field.TITLE] = title;
+          var activity = opensocial.newActivity(data);
+          opensocial.requestCreateActivity(
+              activity, 
+              opensocial.CreateActivityPriority.HIGH, 
+              onActivityPosted
+          ); 
+        };
         
-        <div id="topscore" style="width: 160px; height:480px ; margin-left: 2px; border: 2px solid #4D3716; margin-bottom: 10px; background:#EEEEDD; float:left; clear: right;" > </div>
-      </div>
-      
-        <div id="adplace" style="width: 729px; height:90px ; margin:auto; margin-top: 2px; clear:both;" >
-        
-<script type="text/javascript"><!--
-google_ad_client = "pub-2582827934380391";
-/* Hamsterfall canvas 728x90, created 8/12/09 */
-google_ad_slot = "4347949708";
-google_ad_width = 728;
-google_ad_height = 90;
-//-->
-</script>
-<script type="text/javascript"
-src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-</script>
-        
-        </div>
-        
-        <div style="margin: 5px auto auto; width: 440px;"> Aplicativo desenvolvido pela equipe <img src="http://openminds-network.appspot.com/hamsterfall/OpenMinds.png" alt="OpenMinds logo" style="vertical-align:middle;"><br> Otimizado para <a href="http://www.mozilla.com/firefox/">Firefox3</a> e <a href="http://www.google.com/chrome">Google Chrome</a></div>
-        <a style="display:none;" href="javascript:void(0);" onclick="debugRemove()">Apagar Score</a>
-        <script type="text/javascript">
-// puting flash!
-
-        
-// opensocial
-var globalOwner = null;
-var globalOwnerFriends = null;
-var globalOwnerData = null;   
-var globalViewerData = null;
-var globalOwnerFriendsData = null;   
-var globalViewer = null;
-
-var globalRankingArray = null;
-var globalAnyActivity = false;
-        
-gadgets.util.registerOnLoadHandler(init);
-
-function init() {
-  loadFriends();
-  gadgets.window.adjustHeight(640);
-}
-
-// load all data: owner,viewer, owner friends, and respectives data
-// and then update ranking
-function loadFriends() {
-  var req = opensocial.newDataRequest();
-  req.add(req.newFetchPersonRequest("OWNER"), 'owner');
-  req.add(req.newFetchPersonRequest("VIEWER"), 'viewer');
-
-  var ownerFriends = opensocial.newIdSpec({ 'userId' : "OWNER", 'groupId' : "FRIENDS" });
-  var opt_params = {
-      "max"           : 200,
-      "filter"        : "hasApp"
-  };
-  req.add(req.newFetchPeopleRequest(ownerFriends, opt_params), 'ownerFriends');
-
-  //data
-  var owner = opensocial.newIdSpec({ 'userId' : "OWNER" });
-  req.add(req.newFetchPersonAppDataRequest(owner, 'topScore'), 'data');
-  req.add(req.newFetchPersonAppDataRequest(opensocial.newIdSpec({ 'userId' : "VIEWER" }), 'topScore'), 'vdata');
+        function postMyActivity() {
+          postActivity("This is a sample activity");
+        };
   
-  req.add(req.newFetchPersonAppDataRequest(ownerFriends, 'topScore', opt_params), 'ownerFriendData');
-  req.send(onLoadFriends);
-}
-
-function onLoadFriends(data) {
-  var owner = data.get('owner').getData();
-  var viewer = data.get('viewer').getData();
-  var ownerFriends = data.get('ownerFriends').getData();
-  var topScoreData = data.get('data').getData();
-  var viewerData = data.get('vdata').getData();
-  var ownerFriendData = data.get('ownerFriendData').getData();
-  globalOwner = owner;
-  globalViewer = viewer;
-  globalOwnerFriends = ownerFriends;
-  globalOwnerData = topScoreData;
-  globalViewerData = viewerData;
-  globalOwnerFriendsData = ownerFriendData;
-
-  
-  // alert ( "own" + gadgets.json.stringify(owner) ); //TODO remove
-  // alert ( "view" + gadgets.json.stringify(viewer) ); //TODO remove
-  // alert ( "ownF " + gadgets.json.stringify(ownerFriends ));
-  // alert ( "score " + gadgets.json.stringify( topScoreData));
-  // alert ( "vscore " + gadgets.json.stringify( viewerData));
-  // alert ( "fscore " + gadgets.json.stringify(ownerFriendData ));
-  updateRanking(owner, topScoreData , ownerFriends, ownerFriendData);
-}
-// get a person based on id:  search in friends, owner and viewer
-function getPerson(id){
-    if (id == globalOwner.getId().toString() ){
-        return globalOwner;
-    } else if (globalViewer && id == globalViewer.getId().toString() ){
-        return globalViewer
-    } else if (globalOwnerFriends){
-        return globalOwnerFriends.getById(id);
-    }
-    return null;
-}
-//  creates a function with callbacks to fix size
-function thumbFixSize(object) {
-    var h,w;
-    h = object.height;
-    w = object.width;
-    if (h >= w) {
-        object.style.height='45px' ;
-    } else {
-        object.style.width = '45px';
-        var percent = 45/w;
-        object.style.marginTop = ((45 - h*percent) / 2) + 'px';
-    }
-}
-
-function sortScore(a,b){
-  return b.score - a.score; 
-}
-// update friends ranking 
-function updateRanking(owner, topScoreData , ownerFriends, ownerFriendData){
-    var item;
-    // creating array for sorting
-    var array = new Array();
-    if (ownerFriends){
-        ownerFriends.each(function(person) {
-            if (ownerFriendData[person.getId()]) {
-              item = {id : person.getId() , score : ownerFriendData[person.getId()]['topScore'] };
-              array.push( item );
-            }
-        });
-    }
-    
-    if ( owner && topScoreData[owner.getId()] && topScoreData[owner.getId()]['topScore'] != '' ){
-        item = {id: owner.getId() , score: topScoreData[owner.getId()]['topScore'] };
-        array.push(item);
-    }
-    array =  array.sort(sortScore);
-    globalRankingArray = array;
-    // creating html content
-    var html = new Array();
-    if ( array.length > 0 ){
-        html.push('<table width="100%"><tbody><tr><th colspan="3">__MSG_ranking__</th></tr>');
-    }
-    for (i=0; i< array.length ; i++) {
-        var p = getPerson(array[i].id);
-        if (p){
-            if (globalViewer && p.getId() == globalViewer.getId() ){
-                html.push('<tr style="background-color: #4D3716; color: #FFF; ">');
-            } else if ( p.getId() == globalOwner.getId() ) {
-                html.push('<tr style="background-color: #715120; color: #FFF; ">');
-            } else {
-                html.push('<tr>');
-            }
-            html.push('<th>'+(i+1)+'</th> <td width="45px"><img src="'+p.getField(opensocial.Person.Field.THUMBNAIL_URL)+ '" alt="'+p.getDisplayName()+'" title="'+p.getDisplayName()+'" onload="thumbFixSize(this)" ></td><td>' + array[i].score + '</td></tr>');
-        }
-    }
-    if ( array.length > 0 ){
-        html.push('</tbody></table>');
-    }
-    
-    document.getElementById('topscore').innerHTML = html.join('');
-    gadgets.window.adjustHeight(640);
-}
-
-
-
-// used from flash AS3 - JS
-function getFlashMovie(movieName) {
-  var isIE = navigator.appName.indexOf("Microsoft") != -1;
-  return (isIE) ? window[movieName] : document[movieName];
-}
-function receiveScore(score){
-    if (globalViewer != null) { // viewer has app
-        var scoreData;
-        if (globalOwner && globalOwnerData[globalOwner.getId()] && globalOwnerData[globalOwner.getId()]['topScore'] && 
-            globalOwnerData[globalOwner.getId()]['topScore'] != ''){
-          scoreData = globalOwnerData[globalOwner.getId()]['topScore'];
-        } else {
-          scoreData = 0;
-        }
-        //alert("debug receiveScore "+score + " " + scoreData + " " + (score > scoreData));
-        if (score > scoreData){
-            activityRankUp(score);
-            var req = opensocial.newDataRequest();
-            req.add(req.newUpdatePersonAppDataRequest("VIEWER", "topScore", gadgets.json.stringify(score) ));
-            req.send(onScoreUp);
-        } else {
-            if ( !globalAnyActivity ){
-                activityPlayed();
-                globalAnyActivity = true;
-            }
-            //activity TODO
-            //alert("Low: " + score);
-        }
-    } else {  // do not have app
-        alert("Para ter score, adicione o aplicativo");
-    }
-}
-function onScoreUp(response){
-    // TODO Check error
-    loadFriends();
-}
-
-// auxiliar to find new rank position
-// use global
-function newPosition(newscore){
-    var i = 0;
-    for (i=0; i< globalRankingArray.length ; i++) {
-        if (newscore > globalRankingArray[i].score){
-            break;
-        }
-    }
-    return i+1;
-}
-// find out previous globalviewer position, if any
-function oldPosition(){
-    var i = 0;
-    for (i=0; i < globalRankingArray.length ; i++) {
-        if (globalViewer && globalViewer.getId() == globalRankingArray[i].id){
-            break;
-        }
-    }
-    if (i < globalRankingArray.length){
-        return i+1;
-    } else {
-        return null;
-    }
-}
-// make an activity of destroyed fleet
-function activityRankUp(newscore){
-    globalAnyActivity = true;
-    var params = {};
-    var title;
-    var oldpos = oldPosition();
-    var newpos = newPosition(newscore);
-    if ( oldpos && oldpos == newpos ) { // same rank position
-        title = ' __MSG_activity1__ '+newpos+'('+ newscore +').';
-    } else if (!oldpos || (oldpos && newpos > oldpos) ){
-        title = ' __MSG_activity2__ '+newpos+'('+ newscore +')!';
-    }
-
-    params[opensocial.Activity.Field.TITLE] = title;
-    var body = '<table width="100%" style="text-align: center;"><tbody><tr><td>'
-    if (newpos <= 3){
-        body += '<img src="http://openminds-network.appspot.com/hamsterfall/activity_'+newpos+'.png" border="0" />'
-    } else {
-        body += '<img src="http://openminds-network.appspot.com/hamsterfall/__MSG_newrankimg__" border="0" />'
-    }
-    body += '</td></tr></tbody></table>';
-    params[opensocial.Activity.Field.BODY] = body;
-    var activity = opensocial.newActivity(params)
-    opensocial.requestCreateActivity(activity, opensocial.CreateActivityPriority.HIGH,
-        function(status) {
-              if (status.hadError()){
-                //alert("Falha no envio de atualização:"+ status.getErrorCode() ); 
-              } else { }
-        }   );
-}
-function activityPlayed(){
-    globalAnyActivity = true;
-    var params = {};
-    var title;
-    title = ' __MSG_activity3__ ('+ newscore +')!';
-
-    params[opensocial.Activity.Field.TITLE] = title;
-    var body = '<table width="100%" style="text-align: center;"><tbody><tr><td>'
-    body += '<img src="http://openminds-network.appspot.com/hamsterfall/activity_played.png" border="0" />'
-    body += '</td></tr></tbody></table>';
-    params[opensocial.Activity.Field.BODY] = body;
-        var activity = opensocial.newActivity(params)
-    opensocial.requestCreateActivity(activity, opensocial.CreateActivityPriority.HIGH,
-        function(status) {
-              if (status.hadError()){
-                //alert("Falha no envio de atualização:"+ status.getErrorCode() ); 
-              } else { }
-        }   );
-}
-
-//send viewer name
-function receiveNameRequest(){
-    if (globalViewer){
-        return globalViewer.getDisplayName();
-    } else {
-        return '';
-    }
-}
-
-function debugRemove(){
-  var req = opensocial.newDataRequest();
-  req.add(req.newRemovePersonAppDataRequest(opensocial.IdSpec.PersonId.VIEWER, '*'));
-  req.send();
-}
-        </script>
-
+        gadgets.util.registerOnLoadHandler(postMyActivity);
+      </script>
+      <div id="flash-container"><p>you need flash to see this application</p></div>
     ]]>
-    </Content>
+  </Content>
 </Module>
